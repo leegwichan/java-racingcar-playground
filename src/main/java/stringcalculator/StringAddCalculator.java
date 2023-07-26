@@ -37,6 +37,16 @@ public class StringAddCalculator {
     }
 
     private static int calculate(String numberExpression, String splitRegex) {
-        return Arrays.stream(numberExpression.split(splitRegex)).mapToInt(Integer::parseInt).sum();
+        return Arrays.stream(numberExpression.split(splitRegex))
+                .mapToInt(Integer::parseInt)
+                .map(StringAddCalculator::throwExceptionIfNegative)
+                .sum();
+    }
+
+    private static int throwExceptionIfNegative(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException();
+        }
+        return number;
     }
 }
