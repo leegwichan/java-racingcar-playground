@@ -11,7 +11,7 @@ public class StringAddCalculator {
         if (isBlank(expression)) {
             return DEFAULT;
         }
-        return -1;
+        return Integer.parseInt(expression);
     }
 
     private static boolean isBlank(String expression) {
