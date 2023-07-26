@@ -1,8 +1,11 @@
 package stringcalculator;
 
+import java.util.Arrays;
+
 public class StringAddCalculator {
 
     private static final int DEFAULT = 0;
+    private static final String SEPARATOR = ",";
 
     private StringAddCalculator() {
     }
@@ -11,7 +14,9 @@ public class StringAddCalculator {
         if (isBlank(expression)) {
             return DEFAULT;
         }
-        return Integer.parseInt(expression);
+        return Arrays.stream(expression.split(SEPARATOR))
+                .mapToInt(Integer::parseInt)
+                .sum();
     }
 
     private static boolean isBlank(String expression) {
