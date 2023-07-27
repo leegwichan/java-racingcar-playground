@@ -1,5 +1,7 @@
 package carrace.domain;
 
+import carrace.dto.CarDto;
+import carrace.dto.CarsDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,5 +25,12 @@ public final class Cars {
         for (Car car : cars) {
             car.move();
         }
+    }
+
+    public CarsDto getProgress() {
+        List<CarDto> carDtos = cars.stream()
+                .map(car -> CarDto.of(car.getName(), car.getLocation()))
+                .collect(Collectors.toList());
+        return CarsDto.of(carDtos);
     }
 }
