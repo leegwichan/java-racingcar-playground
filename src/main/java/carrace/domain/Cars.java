@@ -18,4 +18,10 @@ public final class Cars {
     public static Cars of(List<String> names) {
         return new Cars(names);
     }
+
+    public void move() {
+        for (Car car : cars) {
+            car.move();
+        }
+    }
 }
