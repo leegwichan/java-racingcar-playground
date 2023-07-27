@@ -53,11 +53,10 @@ class CarsTest {
         try (MockedConstruction<Car> mock = mockConstruction(Car.class)) {
             Cars cars = Cars.of(DEFAULT_NAMES);
             mockingCar(mock);
-            CarsDto expected = expectedCarsDto();
 
             CarsDto actual = cars.getProgress();
 
-            assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+            assertThat(actual).usingRecursiveComparison().isEqualTo(expectedCarsDto());
         }
     }
 
@@ -70,7 +69,7 @@ class CarsTest {
     }
 
     CarsDto expectedCarsDto() {
-        List<CarDto> expectedCarDtos =  IntStream.range(0, DEFAULT_NAMES.size())
+        List<CarDto> expectedCarDtos = IntStream.range(0, DEFAULT_NAMES.size())
                 .mapToObj(index -> CarDto.of(DEFAULT_NAMES.get(index), DEFAULT_LOCATIONS.get(index)))
                 .collect(toList());
         return CarsDto.of(expectedCarDtos);
