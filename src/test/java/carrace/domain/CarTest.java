@@ -1,7 +1,6 @@
 package carrace.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mockConstruction;
@@ -45,7 +44,7 @@ class CarTest {
         @CsvSource({"steve", "pobi", "A"})
         void creationTest(String name) {
             Car car = Car.of(name);
-            
+
             assertThat(car.getName()).isEqualTo(name);
         }
     }
