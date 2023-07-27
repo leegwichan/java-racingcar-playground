@@ -32,6 +32,10 @@ public final class Car {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getLocation() {
         return location;
     }

@@ -40,11 +40,13 @@ class CarTest {
                     .hasMessageContaining("이름은 1글자 이상이어야 합니다");
         }
 
-        @DisplayName("이름 형식이 올바른 경우 정상적으로 객체를 생성한다")
+        @DisplayName("이름 형식이 올바른 경우 정상적으로 객체를 생성하고 해당 이름은 반환할 수 있다")
         @ParameterizedTest(name = "{0}")
         @CsvSource({"steve", "pobi", "A"})
         void creationTest(String name) {
-            assertThatCode(() -> Car.of(name)).doesNotThrowAnyException();
+            Car car = Car.of(name);
+            
+            assertThat(car.getName()).isEqualTo(name);
         }
     }
 
