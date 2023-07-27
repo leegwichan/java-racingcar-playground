@@ -13,13 +13,17 @@ public final class Car {
     private int location = 0;
 
     private Car(String name) {
+        validateName(name);
+        this.name = name;
+    }
+
+    private void validateName(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("이름은 1글자 이상이어야 합니다");
         }
         if (name.length() > NAME_LENGTH_LIMIT) {
             throw new IllegalArgumentException(String.format("이름이 %d글자 이하이어야 합니다", NAME_LENGTH_LIMIT));
         }
-        this.name = name;
     }
 
     public static Car of(String name) {
