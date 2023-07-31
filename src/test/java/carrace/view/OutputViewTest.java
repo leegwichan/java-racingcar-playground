@@ -85,4 +85,47 @@ class OutputViewTest {
             assertThat(printer.gerPrintedMessage()).contains("A : -", "B : --", "C : ---");
         }
     }
+
+    @DisplayName("차 경주 경기의 최종 결과를 출력할 수 있다")
+    @Nested
+    class PrintCarRaceResultTest {
+
+        @DisplayName("우승자가 1명인 경우 형식에 맞춰 출력할 수 있다")
+        @Test
+        void test1_whenWinnerIsOnlyOne() {
+            SpyPrinter printer = new SpyPrinter();
+            OutputView outputView = OutputView.of(printer);
+            CarsDto carsDto = CarsDto.of(List.of(CarDto.of("A", 1),
+                    CarDto.of("B", 2), CarDto.of("C", 3)));
+
+            outputView.printCarRaceResult(carsDto);
+
+            assertThat(printer.gerPrintedMessage()).contains("C가 최종 우승했습니다.");
+        }
+
+        @DisplayName("우승자가 2명인 경우 형식에 맞춰 출력할 수 있다")
+        @Test
+        void test2_whenWinnerIsTwoPeople() {
+            SpyPrinter printer = new SpyPrinter();
+            OutputView outputView = OutputView.of(printer);
+            CarsDto carsDto = CarsDto.of(List.of(CarDto.of("A", 1),
+                    CarDto.of("B", 3), CarDto.of("C", 3)));
+
+            outputView.printCarRaceResult(carsDto);
+
+            assertThat(printer.gerPrintedMessage()).contains("B, C가 최종 우승했습니다.");
+        }
+
+        @DisplayName("차가 없는 경우 예외를 던진다")
+        @Test
+        void test2_whenCarNotExist_throwException() {
+            SpyPrinter printer = new SpyPrinter();
+            OutputView outputView = OutputView.of(printer);
+            CarsDto carsDto = CarsDto.of(List.of());
+
+            assertThatThrownBy(() -> outputView.printCarRaceResult(carsDto))
+                    .isInstanceOf(NullPointerException.class);
+        }
+    }
+
 }
