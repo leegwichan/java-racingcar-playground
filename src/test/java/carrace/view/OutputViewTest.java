@@ -1,5 +1,6 @@
 package carrace.view;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -27,5 +28,16 @@ class OutputViewTest {
             assertThatCode(() -> OutputView.of(new SpyPrinter()))
                     .doesNotThrowAnyException();
         }
+    }
+
+    @DisplayName("실행 결과 앞 타이틀을 출력할 수 있다")
+    @Test
+    void printResultTitleTest() {
+        SpyPrinter printer = new SpyPrinter();
+        OutputView outputView = OutputView.of(printer);
+
+        outputView.printResultTitle();
+
+        assertThat(printer.gerPrintedMessage()).contains("실행 결과");
     }
 }
