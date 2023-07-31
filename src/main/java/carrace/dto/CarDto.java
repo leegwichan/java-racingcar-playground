@@ -13,4 +13,12 @@ public final class CarDto {
     public static CarDto of(String name, int location) {
         return new CarDto(name, location);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLocation() {
+        return location;
+    }
 }
