@@ -7,13 +7,13 @@ import java.util.stream.Collectors;
 
 public final class Cars {
 
-    private final List<Car> cars;
+    private final List<Car> elements;
 
     private Cars(List<String> names) {
         if (names == null || names.isEmpty()) {
             throw new IllegalArgumentException("차들의 이름은 1개 이상이어야 합니다");
         }
-        this.cars = names.stream()
+        this.elements = names.stream()
                 .map(Car::of).collect(Collectors.toList());
     }
 
@@ -22,13 +22,13 @@ public final class Cars {
     }
 
     public void move() {
-        for (Car car : cars) {
+        for (Car car : elements) {
             car.move();
         }
     }
 
     public CarsDto getProgress() {
-        List<CarDto> carDtos = cars.stream()
+        List<CarDto> carDtos = elements.stream()
                 .map(car -> CarDto.of(car.getName(), car.getLocation()))
                 .collect(Collectors.toList());
         return CarsDto.of(carDtos);
