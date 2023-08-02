@@ -24,8 +24,10 @@ class CarsTest {
     @DisplayName("생성시에 이름이 없을 경우 예외를 던진다")
     @Test
     void creationTest_whenNamesSizeIs0_throwException() {
+        List<String> emptyList = List.of();
+
         assertThatThrownBy(() -> Cars.of(null)).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Cars.of(List.of())).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Cars.of(emptyList)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("차들을 전부 움직일 수 있다")
