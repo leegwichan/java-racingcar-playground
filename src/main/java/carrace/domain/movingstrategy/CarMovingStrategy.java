@@ -23,9 +23,6 @@ public final class CarMovingStrategy implements MovingStrategy {
     @Override
     public boolean isMoved() {
         int randomNumber = random.create(RANDOM_LOWER_BOUND, RANDOM_UPPER_BOUND);
-        if (randomNumber < MOVING_LOWER_BOUND) {
-            return false;
-        }
-        return true;
+        return randomNumber >= MOVING_LOWER_BOUND;
     }
 }
