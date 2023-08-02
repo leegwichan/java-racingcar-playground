@@ -30,4 +30,15 @@ class CarMovingStrategyTest {
             assertThat(strategy).isNotNull();
         }
     }
+
+    @DisplayName("랜덤한 값에 따라 움직임을 판단한다")
+    @ParameterizedTest(name = "랜덤한 값이 {0}이면, {1}을 반환한다")
+    @CsvSource({"0,false", "3,false", "4,true", "9,true"})
+    void isMovedTest(int randomNumber, boolean expected) {
+        CarMovingStrategy strategy = new CarMovingStrategy((min, max) -> randomNumber);
+
+        boolean actual = strategy.isMoved();
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }

@@ -6,6 +6,10 @@ import java.util.Objects;
 
 public final class CarMovingStrategy implements MovingStrategy {
 
+    private static final int RANDOM_UPPER_BOUND = 9;
+    private static final int RANDOM_LOWER_BOUND = 0;
+    private static final int MOVING_LOWER_BOUND = 4;
+
     private final RandomInt random;
 
     CarMovingStrategy(RandomInt random) {
@@ -18,6 +22,10 @@ public final class CarMovingStrategy implements MovingStrategy {
 
     @Override
     public boolean isMoved() {
-        return false;
+        int randomNumber = random.create(RANDOM_LOWER_BOUND, RANDOM_UPPER_BOUND);
+        if (randomNumber < MOVING_LOWER_BOUND) {
+            return false;
+        }
+        return true;
     }
 }
