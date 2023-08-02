@@ -1,6 +1,6 @@
 package carrace.view.printer;
 
-public class ConsolePrinter implements Printer {
+public final class ConsolePrinter implements Printer {
 
     @Override
     public void print(String message) {
