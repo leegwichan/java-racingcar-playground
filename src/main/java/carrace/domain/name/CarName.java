@@ -10,7 +10,7 @@ public final class CarName implements Name {
 
     private CarName(String name) {
         validate(name);
-        this.name = name;
+        this.name = name.trim();
     }
 
     void validate(String name) {
@@ -18,7 +18,7 @@ public final class CarName implements Name {
         if (name.isBlank()) {
             throw new IllegalArgumentException("이름은 빈칸이 아닌 글자가 하나 이상이어야 합니다");
         }
-        if (name.length() > MAX_LENGTH) {
+        if (name.trim().length() > MAX_LENGTH) {
             throw new IllegalArgumentException("이름은 5글자를 초과해서는 안됩니다");
         }
     }
@@ -29,6 +29,6 @@ public final class CarName implements Name {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 }
