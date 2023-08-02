@@ -7,31 +7,22 @@ import carrace.domain.movingstrategy.MovingStrategy;
 import carrace.domain.name.Name;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class CarTest {
 
-    @DisplayName("앞으로 가는 것을 허용했을 때, 앞으로 한칸 이동한다")
-    @Test
-    void moveTest_whenMovingIsAllowed() {
-        MovingStrategy mockMovingStrategy = () -> true;
+    @DisplayName("전략에 따라 앞으로 이동할 수 있다")
+    @ParameterizedTest(name = "앞으로 가는 것이 {0}일때, 앞으로 {1}칸 간다")
+    @CsvSource({"true, 1", "false, 0"})
+    void moveTest_whenMovingIsAllowed(boolean isMoved, int location) {
+        MovingStrategy mockMovingStrategy = () -> isMoved;
         Name mockName = () -> "steve";
         Car car = new Car(mockMovingStrategy, mockName, FakeLocation.from(0));
 
         car.move();
 
-        assertThat(car.getLocation()).isEqualTo(1);
-    }
-
-    @DisplayName("앞으로 가는 것을 허용했을 때, 앞으로 한칸 이동한다")
-    @Test
-    void moveTest_whenMovingIsNotAllowed() {
-        MovingStrategy mockMovingStrategy = () -> false;
-        Name mockName = () -> "steve";
-        Car car = new Car(mockMovingStrategy, mockName, FakeLocation.from(0));
-
-        car.move();
-
-        assertThat(car.getLocation()).isEqualTo(0);
+        assertThat(car.getLocation()).isEqualTo(location);
     }
 
     @DisplayName("이름을 초기에 설정한 대로 반환한다")
