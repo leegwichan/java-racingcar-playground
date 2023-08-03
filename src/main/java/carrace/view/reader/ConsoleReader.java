@@ -2,7 +2,7 @@ package carrace.view.reader;
 
 import java.util.Scanner;
 
-public class ConsoleReader implements Reader {
+public final class ConsoleReader implements Reader {
 
     private static final Scanner scanner = new Scanner(System.in);
 

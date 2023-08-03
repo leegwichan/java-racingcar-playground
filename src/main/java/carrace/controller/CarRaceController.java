@@ -30,7 +30,7 @@ public class CarRaceController {
 
     private void printCarProgress(int count) {
         outputView.printResultTitle();
-        for (; count > 0; count--) {
+        for (int currentCount = count; currentCount > 0; currentCount--) {
             cars.move();
             outputView.printCarsLocation(cars.getProgress());
         }

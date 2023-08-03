@@ -19,6 +19,18 @@ class InputViewTest {
     @Nested
     class CarNamesTest {
 
+        @DisplayName("입력 요청 메세지를 출력할 수 있다")
+        @Test
+        void inputCarNameTest_printMessage() {
+            SpyPrinter printer = new SpyPrinter();
+            String inputMessage = "steve";
+            InputView inputView = createMockInputView(inputMessage, printer);
+
+            inputView.inputCarNames();
+
+            assertThat(printer.gerPrintedMessage()).contains("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).");
+        }
+
         @DisplayName("특정 문자를 기준으로 나누어 이름을 입력받을 수 있다")
         @Test
         void inputCarNamesTest() {
@@ -31,22 +43,23 @@ class InputViewTest {
             assertThat(actual).isEqualTo(expected);
         }
 
-        @DisplayName("")
-        @Test
-        void inputCarNameTest_printMessage() {
-            SpyPrinter printer = new SpyPrinter();
-            String inputMessage = "steve,pobi,james,amy";
-            InputView inputView = createMockInputView(inputMessage, printer);
-
-            inputView.inputCarNames();
-
-            assertThat(printer.gerPrintedMessage()).contains("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).");
-        }
     }
 
     @DisplayName("시도 횟수를 입력받을 수 있다")
     @Nested
     class PlayCountTest {
+
+        @DisplayName("입력 요청 메세지를 출력할 수 있다")
+        @Test
+        void inputPlayCountTest_printMessage() {
+            String inputMessage = "3";
+            SpyPrinter printer = new SpyPrinter();
+            InputView inputView = createMockInputView(inputMessage, printer);
+
+            inputView.inputPlayCount();
+
+            assertThat(printer.gerPrintedMessage()).contains("시도할 회수는 몇회인가요?");
+        }
 
         @DisplayName("양수 외의 문자를 입력하면 예외를 던진다")
         @ParameterizedTest(name = "{0}")
@@ -59,7 +72,7 @@ class InputViewTest {
                     .hasMessageContaining("양수를 입력하여야 합니다");
         }
 
-        @DisplayName("입력 메세지와 함께 양수를 입력하면 해당 숫자를 반환한다")
+        @DisplayName("양수를 입력하면 해당 숫자를 반환한다")
         @ParameterizedTest(name = "{0}")
         @CsvSource({"1", "10"})
         void inputPlayCountTest(String inputMessage) {
@@ -69,7 +82,6 @@ class InputViewTest {
 
             int actual = inputView.inputPlayCount();
 
-            assertThat(printer.gerPrintedMessage()).contains("시도할 회수는 몇회인가요?");
             assertThat(actual).isEqualTo(expected);
         }
     }
