@@ -49,6 +49,18 @@ class InputViewTest {
     @Nested
     class PlayCountTest {
 
+        @DisplayName("입력 요청 메세지를 출력할 수 있다")
+        @Test
+        void inputPlayCountTest_printMessage() {
+            String inputMessage = "3";
+            SpyPrinter printer = new SpyPrinter();
+            InputView inputView = createMockInputView(inputMessage, printer);
+
+            inputView.inputPlayCount();
+
+            assertThat(printer.gerPrintedMessage()).contains("시도할 회수는 몇회인가요?");
+        }
+
         @DisplayName("양수 외의 문자를 입력하면 예외를 던진다")
         @ParameterizedTest(name = "{0}")
         @CsvSource({"+-", "13r", "0", "-1"})
@@ -60,7 +72,7 @@ class InputViewTest {
                     .hasMessageContaining("양수를 입력하여야 합니다");
         }
 
-        @DisplayName("입력 메세지와 함께 양수를 입력하면 해당 숫자를 반환한다")
+        @DisplayName("양수를 입력하면 해당 숫자를 반환한다")
         @ParameterizedTest(name = "{0}")
         @CsvSource({"1", "10"})
         void inputPlayCountTest(String inputMessage) {
@@ -70,7 +82,6 @@ class InputViewTest {
 
             int actual = inputView.inputPlayCount();
 
-            assertThat(printer.gerPrintedMessage()).contains("시도할 회수는 몇회인가요?");
             assertThat(actual).isEqualTo(expected);
         }
     }
