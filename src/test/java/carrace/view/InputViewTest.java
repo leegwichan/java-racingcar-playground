@@ -19,6 +19,18 @@ class InputViewTest {
     @Nested
     class CarNamesTest {
 
+        @DisplayName("입력 요청 메세지를 출력할 수 있다")
+        @Test
+        void inputCarNameTest_printMessage() {
+            SpyPrinter printer = new SpyPrinter();
+            String inputMessage = "steve";
+            InputView inputView = createMockInputView(inputMessage, printer);
+
+            inputView.inputCarNames();
+
+            assertThat(printer.gerPrintedMessage()).contains("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).");
+        }
+
         @DisplayName("특정 문자를 기준으로 나누어 이름을 입력받을 수 있다")
         @Test
         void inputCarNamesTest() {
@@ -31,17 +43,6 @@ class InputViewTest {
             assertThat(actual).isEqualTo(expected);
         }
 
-        @DisplayName("")
-        @Test
-        void inputCarNameTest_printMessage() {
-            SpyPrinter printer = new SpyPrinter();
-            String inputMessage = "steve,pobi,james,amy";
-            InputView inputView = createMockInputView(inputMessage, printer);
-
-            inputView.inputCarNames();
-
-            assertThat(printer.gerPrintedMessage()).contains("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).");
-        }
     }
 
     @DisplayName("시도 횟수를 입력받을 수 있다")
