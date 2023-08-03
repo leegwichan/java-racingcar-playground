@@ -32,7 +32,7 @@ class CarTest {
         Name mockName = () -> "steve";
         Car car = new Car(mockMovingStrategy, mockName, FakeLocation.from(0));
 
-        String actual  = car.getName();
+        String actual = car.getName();
 
         assertThat(actual).isEqualTo("steve");
     }
