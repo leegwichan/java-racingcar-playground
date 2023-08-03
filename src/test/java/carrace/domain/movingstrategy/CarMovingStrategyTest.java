@@ -3,6 +3,7 @@ package carrace.domain.movingstrategy;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import carrace.domain.movingstrategy.random.RandomInt;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,8 @@ class CarMovingStrategyTest {
     @ParameterizedTest(name = "랜덤한 값이 {0}이면, {1}을 반환한다")
     @CsvSource({"0,false", "3,false", "4,true", "9,true"})
     void isMovedTest(int randomNumber, boolean expected) {
-        CarMovingStrategy strategy = new CarMovingStrategy((min, max) -> randomNumber);
+        RandomInt mockRandomInt = (min, max) -> randomNumber;
+        CarMovingStrategy strategy = new CarMovingStrategy(mockRandomInt);
 
         boolean actual = strategy.isMoved();
 
